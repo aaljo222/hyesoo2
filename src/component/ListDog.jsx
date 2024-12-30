@@ -5,43 +5,41 @@ import axios from 'axios';
 import BackToTopButton from './BackToTopButton.jsx';
 
 const ListDogs = () => {
-
     const [animalPhotos, setAnimalPhotos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
+        console.log("Loaded Environment Variable (listDogs):", listDogs); // Debugging log
         const fetchAnimalPhotos = async () => {
             const url = `http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
             try {
                 const response = await axios.get(url);
                 const xmlText = response.data;
-                // XML 파싱
                 const xml = new DOMParser().parseFromString(xmlText, "application/xml");
                 const items = Array.from(xml.getElementsByTagName("row")).map((item) => {
                     const animalNo = item.querySelector("ANIMAL_NO")?.textContent || "알 수 없음";
                     const photoUrl = item.querySelector("PHOTO_URL")?.textContent || "";
-                    // URL에 프로토콜 추가
                     const fullPhotoUrl = photoUrl.startsWith("http") ? photoUrl : `https://${photoUrl}`;
-                    return {
-                        animalNo,
-                        photoUrl: fullPhotoUrl,
-                    };
+                    return { animalNo, photoUrl: fullPhotoUrl };
                 });
-                // 동물 번호를 기준으로 중복 제거
                 const uniqueAnimals = Array.from(new Set(items.map(animal => animal.animalNo)))
-                    .map(animalNo => {
-                        return items.find(item => item.animalNo === animalNo);
-                    });
+                    .map(animalNo => items.find(item => item.animalNo === animalNo));
                 setAnimalPhotos(uniqueAnimals);
+                setLoading(false);
             } catch (err) {
-                console.error(err);
+                console.error("Error fetching animal photos:", err);
+                setError("Failed to fetch animal photos.");
+                setLoading(false);
             }
         };
         fetchAnimalPhotos();
     }, []);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
-
         <div className='listDogcont'>
             <BackToTopButton />
             <div className='listDogHead'>
@@ -62,7 +60,6 @@ const ListDogs = () => {
                 ))}
             </div>
         </div>
-
     );
 };
 

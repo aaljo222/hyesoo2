@@ -18,9 +18,10 @@ const WalkTracker = () => {
     const [photo, setPhoto] = useState(null);
     const [walkLog, setWalkLog] = useState('');
     const mapRef = useRef(null);
+    console.log("Google Maps API Key:", key);
 
     const handleMapClick = (e) => {
-        const newPath = [...path, e.latLng];
+        const newPath = [...path, { lat: e.latLng.lat(), lng: e.latLng.lng() }];
         setPath(newPath);
     };
 

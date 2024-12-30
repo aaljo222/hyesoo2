@@ -1,161 +1,40 @@
 .walkTrackerCont {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 0;
-}
-
-.walkTrackerWrapper {
-    width: 80%;
-    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin: 20px;
 }
 
-.walkTrackerheader {
-    font-size: 20px;
+.walkTrackerWrapper {
     width: 100%;
-    display: flex;
-    margin-bottom: 3rem;
-    margin-top: 30px;
+    max-width: 1200px;
 }
 
-.walkTrackerheader>h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.walkTrackerCourse {
-    width: 100%;
-    display: flex;
-    margin-bottom: 2rem;
+.walkTrackerheader h3 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .walkTrackerMap {
-    width: 100%;
-    display: flex;
-}
-
-.buttonGroup {
-    width: 100%;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin: 1.5rem 0;
-}
-
-.calculateRouteButton,
-.saveLogButton {
-    background-color: #dd953f;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    margin-top: 3rem;
-}
-
-.calculateRouteButton:hover,
-.saveLogButton:hover {
-    background-color: white;
-    color: #dd953f;
-    border: 1px solid #dd953f;
+    margin-bottom: 20px;
 }
 
 .uploadSection {
-    width: 100%;
     margin-top: 20px;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.uploadSection h3 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    text-align: left;
-    margin-bottom: 1rem;
+.saveLogButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.uploadSection input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-
-@media screen and (max-width: 768px) {
-
-    .walkTrackerheader>h3,
-    .uploadSection h3 {
-        font-size: 24px;
-    }
-
-    .walkTrackerWrapper {
-        width: 95%;
-    }
-
-    .walkTrackerheader {
-        margin-bottom: 2rem;
-    }
-
-    .walkTrackerheader h2 {
-        font-size: 1.4rem;
-    }
-
-    .walkTrackerCourse {
-        flex-direction: column;
-    }
-
-    .walkTrackerMap {
-        min-height: 300px;
-        justify-content: center;
-    }
-
-    .buttonGroup {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .calculateRouteButton,
-    .saveLogButton {
-        width: 80%;
-        padding: 14px 20px;
-        margin-top: 30px;
-    }
-
-    .uploadSection {
-        padding: 1.5rem;
-    }
-}
-
-
-@media screen and (max-width: 480px) {
-    .walkTrackerheader {
-        margin-bottom: 1.5rem;
-    }
-
-    .walkTrackerheader>h2 {
-        font-size: 1.2rem;
-    }
-
-    .walkTrackerMap {
-        min-height: 250px;
-    }
-
-    .uploadSection {
-        padding: 1rem;
-    }
-
-    .uploadSection>h3 {
-        font-size: 1.1rem;
-    }
+.saveLogButton:hover {
+    background-color: #45a049;
 }
