@@ -19,8 +19,8 @@ const ListDogs = () => {
                 return;
             }
 
-            // Vercel의 프록시 API를 통해 요청
-            const proxyUrl = `/api/hello?url=http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
+            // 프록시 서버 URL을 통해 요청
+            const proxyUrl = `https://flaskserver-three.vercel.app/api/proxy?url=http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
 
             try {
                 const response = await axios.get(proxyUrl);
