@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import '../css/walkTracker.css';
-import { key } from '../api/Api.js'
+// import { key } from '../api/Api.js'
 
 const containerStyle = {
     width: '85%',
@@ -18,7 +18,8 @@ const WalkTracker = () => {
     const [photo, setPhoto] = useState(null);
     const [walkLog, setWalkLog] = useState('');
     const mapRef = useRef(null);
-    console.log("Google Maps API Key:", key);
+    const googleMapsApiKey = process.env.REACT_APP_LIST_DOGS; // Directly using Vercel environment variable
+    console.log("Loaded Environment Variable (googleMapsApiKey):", googleMapsApiKey);
 
     const handleMapClick = (e) => {
         const newPath = [...path, { lat: e.latLng.lat(), lng: e.latLng.lng() }];
@@ -48,7 +49,7 @@ const WalkTracker = () => {
                 </div>
                 <div className='walkTrackerCourse'>
                     <div className='walkTrackerMap'>
-                        <LoadScript googleMapsApiKey={key}>
+                        <LoadScript googleMapsApiKey={googleMapsApiKey}>
                             <GoogleMap
                                 mapContainerStyle={containerStyle}
                                 center={center}

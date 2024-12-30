@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { listDogs } from '../api/Api.js';
 import '../css/listDogs.css';
 import axios from 'axios';
 import BackToTopButton from './BackToTopButton.jsx';
@@ -10,12 +9,23 @@ const ListDogs = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log("Loaded Environment Variable (listDogs):", listDogs); // Debugging log
+        const listDogs = process.env.REACT_APP_LIST_DOGS; // Directly using Vercel environment variable
+        console.log("Loaded Environment Variable (listDogs):", listDogs);
+
         const fetchAnimalPhotos = async () => {
+            if (!listDogs) {
+                setError("Environment variable REACT_APP_LIST_DOGS is not set.");
+                setLoading(false);
+                return;
+            }
+
             const url = `http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
+
             try {
                 const response = await axios.get(url);
                 const xmlText = response.data;
+
+                // XML Parsing
                 const xml = new DOMParser().parseFromString(xmlText, "application/xml");
                 const items = Array.from(xml.getElementsByTagName("row")).map((item) => {
                     const animalNo = item.querySelector("ANIMAL_NO")?.textContent || "알 수 없음";
@@ -23,8 +33,11 @@ const ListDogs = () => {
                     const fullPhotoUrl = photoUrl.startsWith("http") ? photoUrl : `https://${photoUrl}`;
                     return { animalNo, photoUrl: fullPhotoUrl };
                 });
+
+                // Deduplicate by animalNo
                 const uniqueAnimals = Array.from(new Set(items.map(animal => animal.animalNo)))
                     .map(animalNo => items.find(item => item.animalNo === animalNo));
+
                 setAnimalPhotos(uniqueAnimals);
                 setLoading(false);
             } catch (err) {
@@ -33,6 +46,7 @@ const ListDogs = () => {
                 setLoading(false);
             }
         };
+
         fetchAnimalPhotos();
     }, []);
 
