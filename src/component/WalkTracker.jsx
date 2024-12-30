@@ -18,7 +18,7 @@ const WalkTracker = () => {
     const [photo, setPhoto] = useState(null);
     const [walkLog, setWalkLog] = useState('');
     const mapRef = useRef(null);
-    const googleMapsApiKey = process.env.REACT_APP_LIST_DOGS; // Directly using Vercel environment variable
+    const googleMapsApiKey = process.env.REACT_APP_API_KEY; // Directly using Vercel environment variable
     console.log("Loaded Environment Variable (googleMapsApiKey):", googleMapsApiKey);
 
     const handleMapClick = (e) => {
