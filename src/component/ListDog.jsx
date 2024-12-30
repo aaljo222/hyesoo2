@@ -9,7 +9,7 @@ const ListDogs = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const listDogs = process.env.REACT_APP_LIST_DOGS; // Directly using Vercel environment variable
+        const listDogs = process.env.REACT_APP_LIST_DOGS; // 환경 변수 사용
         console.log("Loaded Environment Variable (listDogs):", listDogs);
 
         const fetchAnimalPhotos = async () => {
@@ -19,10 +19,11 @@ const ListDogs = () => {
                 return;
             }
 
-            const url = `http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
+            // Vercel의 프록시 API를 통해 요청
+            const proxyUrl = `/api/hello?url=http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
 
             try {
-                const response = await axios.get(url);
+                const response = await axios.get(proxyUrl);
                 const xmlText = response.data;
 
                 // XML Parsing
