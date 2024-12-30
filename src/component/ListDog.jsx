@@ -19,7 +19,7 @@ const ListDogs = () => {
                 return;
             }
 
-            const url = `http://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
+            const url = `https://openapi.seoul.go.kr:8088/${listDogs}/xml/TbAdpWaitAnimalPhotoView/1/300/`;
 
             try {
                 const response = await axios.get(url);
